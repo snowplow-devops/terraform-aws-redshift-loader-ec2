@@ -3,7 +3,7 @@ locals {
   module_version = "0.1.0"
 
   app_name    = "rdb-loader-redshift"
-  app_version = "5.3.2"
+  app_version = "5.6.0"
 
   local_tags = {
     Name           = var.name
