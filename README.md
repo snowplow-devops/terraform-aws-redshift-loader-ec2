@@ -22,29 +22,17 @@ For details on what information is collected please see this module: https://git
 
 Redshift Loader loads shredded events from S3 bucket to Redshift. 
 
-Events are initially transformed to `shredded` format by transformer. After transformation is finished, transformer sends SQS message to given SQS queue. SQS message contains pieces of information related with transformed events. These are the S3 location of transformed events and the keys of the custom schemas found in the transformed events. Redshift Loader gets messages from common SQS queue and loads transformed events to Redshift. The events which are loaded to Redshift are the ones which where indicated by the processed SQS message.
+For more information on how it works, see [this overview](https://docs.snowplow.io/docs/storing-querying/loading-process/?warehouse=redshift&cloud=aws-micro-batching).
 
-Assuming you already have an active Redshift Cluster to obtain the other `redshift_*` inputs you can execute the following SQL.  You will need the ability to create databases, users and schemas in the cluster:
-
-```sql
--- 1. (Optional) Create a new database - you can also use an existing one if you prefer
-CREATE DATABASE ${redshift_database};
--- Log back into Redshift with the new database:
--- psql --host <host> --port <port> --username <admin> --dbname ${redshift_database}
-
--- 2. Create dedicated schema within database
-CREATE SCHEMA IF NOT EXISTS ${redshift_schema};
-
--- 3. Create loader user
-CREATE USER ${redshift_loader_user} WITH PASSWORD '${redshift_password}';
-
--- 4. Ensure schema is owned by loader user
-ALTER SCHEMA ${redshift_schema} OWNER TO ${redshift_loader_user};
-```
+To configure Redshift, please refer to the [quick start guide](https://docs.snowplow.io/docs/getting-started-on-snowplow-open-source/quick-start/?warehouse=redshift#prepare-the-destination).
 
 _NOTE_: You will need to ensure that the loader can access the cluster over whatever port is configured for the cluster (generally `5439`). If running in the same VPC as the pipeline you can allowlist the security group of the loader directly (`module output = sg_id`).
 
 Duration settings such as `folder_monitoring_period` or `retry_period` should be given in the [documented duration format][duration-doc].
+
+## Example
+
+Normally, this module would be used as part of our [quick start guide](https://docs.snowplow.io/docs/getting-started-on-snowplow-open-source/quick-start/). However, you can also use it standalone for a custom setup.
 
 See example below:
 
