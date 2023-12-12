@@ -3,6 +3,18 @@ variable "name" {
   type        = string
 }
 
+variable "app_version" {
+  description = "Version of rdb loader redshift"
+  type        = string
+  default     = "5.8.0"
+}
+
+variable "config_override_b64" {
+  description = "App config uploaded as a base64 encoded blob. This variable facilitates dev flow, if config is incorrect this can break the deployment."
+  type        = string
+  default     = ""
+}
+
 variable "iam_permissions_boundary" {
   description = "The permissions boundary ARN to set on IAM roles created"
   default     = ""
