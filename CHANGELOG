@@ -1,3 +1,9 @@
+Version 0.1.2 (2023-12-12)
+--------------------------
+Accept user input for version and config (#4)
+Update to Snowplow Community Licence (#6)
+Normalize repo against other clouds (#7)
+
 Version 0.1.1 (2023-06-19)
 --------------------------
 Bump app_version to v5.6.0 (#1)
