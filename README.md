@@ -135,7 +135,7 @@ module "rs_loader" {
 |------|--------|---------|
 | <a name="module_instance_type_metrics"></a> [instance\_type\_metrics](#module\_instance\_type\_metrics) | snowplow-devops/ec2-instance-type-metrics/aws | 0.1.2 |
 | <a name="module_service"></a> [service](#module\_service) | snowplow-devops/service-ec2/aws | 0.2.0 |
-| <a name="module_telemetry"></a> [telemetry](#module\_telemetry) | snowplow-devops/telemetry/snowplow | 0.4.0 |
+| <a name="module_telemetry"></a> [telemetry](#module\_telemetry) | snowplow-devops/telemetry/snowplow | 0.5.0 |
 
 ## Resources
 
@@ -192,7 +192,7 @@ module "rs_loader" {
 | <a name="input_health_check_timeout"></a> [health\_check\_timeout](#input\_health\_check\_timeout) | How long to wait for a response for health check query | `string` | `"1 min"` | no |
 | <a name="input_iam_permissions_boundary"></a> [iam\_permissions\_boundary](#input\_iam\_permissions\_boundary) | The permissions boundary ARN to set on IAM roles created | `string` | `""` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The instance type to use | `string` | `"t3a.micro"` | no |
-| <a name="input_java_opts"></a> [java\_opts](#input\_java\_opts) | Custom JAVA Options | `string` | `"-Dorg.slf4j.simpleLogger.defaultLogLevel=info -XX:MinRAMPercentage=50 -XX:MaxRAMPercentage=75"` | no |
+| <a name="input_java_opts"></a> [java\_opts](#input\_java\_opts) | Custom JAVA Options | `string` | `"-XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75"` | no |
 | <a name="input_redshift_aws_s3_folder_monitoring_stage_url"></a> [redshift\_aws\_s3\_folder\_monitoring\_stage\_url](#input\_redshift\_aws\_s3\_folder\_monitoring\_stage\_url) | AWS bucket URL of folder monitoring stage - must be within 'redshift\_aws\_s3\_bucket\_name' (NOTE: must be set if 'folder\_monitoring\_enabled' is true) | `string` | `""` | no |
 | <a name="input_redshift_aws_s3_folder_monitoring_transformer_output_stage_url"></a> [redshift\_aws\_s3\_folder\_monitoring\_transformer\_output\_stage\_url](#input\_redshift\_aws\_s3\_folder\_monitoring\_transformer\_output\_stage\_url) | AWS bucket URL of transformer output stage - must be within 'redshift\_aws\_s3\_bucket\_name' (NOTE: must be set if 'folder\_monitoring\_enabled' is true) | `string` | `""` | no |
 | <a name="input_redshift_jsonpaths_bucket"></a> [redshift\_jsonpaths\_bucket](#input\_redshift\_jsonpaths\_bucket) | S3 path that holds JSONPaths | `string` | `""` | no |
