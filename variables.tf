@@ -6,7 +6,7 @@ variable "name" {
 variable "app_version" {
   description = "Version of rdb loader redshift"
   type        = string
-  default     = "5.8.0"
+  default     = "5.6.0"
 }
 
 variable "config_override_b64" {
