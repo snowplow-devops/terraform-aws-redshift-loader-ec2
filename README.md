@@ -55,6 +55,8 @@ resource "aws_sqs_queue" "rs_message_queue" {
 module "transformer_stsv" {
   source  = "snowplow-devops/transformer-kinesis-ec2/aws"
 
+  accept_limited_use_license = true
+
   name       = "transformer-server-stsv"
   vpc_id     = var.vpc_id
   subnet_ids = var.subnet_ids
@@ -85,6 +87,8 @@ module "transformer_stsv" {
 
 module "rs_loader" {
   source = "snowplow-devops/redshift-loader-ec2/aws"
+
+  accept_limited_use_license = true
 
   name       = "rs-loader-server"
   vpc_id     = var.vpc_id
@@ -175,6 +179,7 @@ module "rs_loader" {
 | <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | The name of the SSH key-pair to attach to all EC2 nodes deployed | `string` | n/a | yes |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | The list of subnets to deploy Loader across | `list(string)` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC to deploy Loader within | `string` | n/a | yes |
+| <a name="input_accept_limited_use_license"></a> [accept\_limited\_use\_license](#input\_accept\_limited\_use\_license) | Acceptance of the SLULA terms (https://docs.snowplow.io/limited-use-license-1.0/) | `bool` | `false` | no |
 | <a name="input_amazon_linux_2_ami_id"></a> [amazon\_linux\_2\_ami\_id](#input\_amazon\_linux\_2\_ami\_id) | The AMI ID to use which must be based of of Amazon Linux 2; by default the latest community version is used | `string` | `""` | no |
 | <a name="input_app_version"></a> [app\_version](#input\_app\_version) | Version of rdb loader redshift | `string` | `"5.6.0"` | no |
 | <a name="input_associate_public_ip_address"></a> [associate\_public\_ip\_address](#input\_associate\_public\_ip\_address) | Whether to assign a public ip address to this instance | `bool` | `true` | no |
@@ -229,15 +234,9 @@ module "rs_loader" {
 
 # Copyright and license
 
-The Terraform AWS Redshift Loader on EC2 project is Copyright 2023-present Snowplow Analytics Ltd.
+Copyright 2023-present Snowplow Analytics Ltd.
 
-Licensed under the [Snowplow Community License](https://docs.snowplow.io/community-license-1.0). _(If you are uncertain how it applies to your use case, check our answers to [frequently asked questions](https://docs.snowplow.io/docs/contributing/community-license-faq/).)_
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Licensed under the [Snowplow Limited Use License Agreement][license]. _(If you are uncertain how it applies to your use case, check our answers to [frequently asked questions][license-faq].)_
 
 [duration-doc]: https://github.com/lightbend/config/blob/main/HOCON.md#duration-format
 
@@ -247,8 +246,9 @@ limitations under the License.
 [ci]: https://github.com/snowplow-devops/terraform-aws-redshift-loader-ec2/actions?query=workflow%3Aci
 [ci-image]: https://github.com/snowplow-devops/terraform-aws-redshift-loader-ec2/workflows/ci/badge.svg
 
-[license]: https://docs.snowplow.io/docs/contributing/community-license-faq/
-[license-image]: https://img.shields.io/badge/license-Snowplow--Community-blue.svg?style=flat
+[license]: https://docs.snowplow.io/limited-use-license-1.0/
+[license-image]: https://img.shields.io/badge/license-Snowplow--Limited--Use-blue.svg?style=flat
+[license-faq]: https://docs.snowplow.io/docs/contributing/limited-use-license-faq/
 
 [registry]: https://registry.terraform.io/modules/snowplow-devops/redshift-loader-ec2/aws/latest
 [registry-image]: https://img.shields.io/static/v1?label=Terraform&message=Registry&color=7B42BC&logo=terraform
