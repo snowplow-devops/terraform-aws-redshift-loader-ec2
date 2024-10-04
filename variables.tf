@@ -363,6 +363,13 @@ variable "redshift_password" {
   description = "Password for redshift_loader_user used by loader to perform loading"
   type        = string
   sensitive   = true
+  default     = ""
+}
+
+variable "redshift_password_ssm_param" {
+  description = "SSM parameter containing the password for redshift_loader_user used by loader to perform loading"
+  type        = string
+  default     = ""
 }
 
 variable "redshift_max_error" {

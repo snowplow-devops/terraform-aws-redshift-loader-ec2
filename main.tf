@@ -41,6 +41,19 @@ locals {
     ]
   }]
   private_ecr_registry_statement_final = local.is_private_ecr_registry ? local.private_ecr_registry_statement : []
+
+  is_redshift_password_ssm_param = var.redshift_password_ssm_param != ""
+  ssm_param_statement = [{
+    Action = [
+      "ssm:GetParameter",
+      "ssm:GetParameters"
+    ]
+    Effect = "Allow"
+    Resource = [
+      "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter${var.redshift_password_ssm_param}"
+    ]
+  }]
+  ssm_param_statement_final = local.is_redshift_password_ssm_param ? local.ssm_param_statement : []
 }
 
 module "telemetry" {
@@ -100,6 +113,7 @@ resource "aws_iam_policy" "iam_policy" {
     Version = "2012-10-17",
     Statement = concat(
       local.private_ecr_registry_statement_final,
+      local.ssm_param_statement_final,
       [
         {
           Effect = "Allow",
@@ -346,7 +360,6 @@ locals {
     rs_port                              = var.redshift_port
     rs_schema                            = var.redshift_schema
     rs_username                          = var.redshift_loader_user
-    rs_password                          = var.redshift_password
     rs_max_error                         = var.redshift_max_error
     rs_jsonpaths_bucket                  = var.redshift_jsonpaths_bucket
     temp_credentials_role_arn            = aws_iam_role.sts_credentials_role.arn
@@ -403,6 +416,10 @@ locals {
     is_private_ecr_registry = local.is_private_ecr_registry
     private_ecr_registry    = var.private_ecr_registry
     region                  = data.aws_region.current.name
+
+    is_redshift_password_ssm_param = local.is_redshift_password_ssm_param
+    rs_password                    = var.redshift_password
+    rs_password_ssm_param          = var.redshift_password_ssm_param
   })
 }
 

@@ -1,5 +1,11 @@
-%{ if is_private_ecr_registry }
+%{ if is_private_ecr_registry ~}
 aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${private_ecr_registry}
+%{ endif ~}
+
+%{ if is_redshift_password_ssm_param ~}
+redshift_password=$(aws ssm get-parameter --name "${rs_password_ssm_param}" --region "${region}" --with-decryption --query "Parameter.Value" --output text)
+%{ else ~}
+redshift_password='${rs_password}'
 %{ endif ~}
 
 # Launch the loader
@@ -20,6 +26,7 @@ sudo docker run \
   --env JDK_JAVA_OPTIONS='${java_opts}' \
   --env ACCEPT_LIMITED_USE_LICENSE=${accept_limited_use_license} \
   --env INSTANCE_ID=$(get_instance_id) \
+  --env REDSHIFT_PASSWORD=$${redshift_password} \
   ${private_ecr_registry}snowplow/rdb-loader-redshift:${version} \
   --config ${config_b64} \
   --iglu-config ${iglu_resolver_b64}

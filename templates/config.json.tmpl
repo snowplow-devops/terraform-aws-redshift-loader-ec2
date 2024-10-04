@@ -15,22 +15,22 @@
   # Warehouse connection details
   "storage" : {
     # The destination DB
-    "type": "redshift",
+    "type": "redshift"
 
     # Redshift hostname
-    "host": "${rs_host}",
+    "host": "${rs_host}"
     # Database name
     "database": "${rs_database}",
     # Database port. Optional, default value 5439
-    "port": ${rs_port},
+    "port": ${rs_port}
     # DB schema name
-    "schema": "${rs_schema}",
+    "schema": "${rs_schema}"
     # DB user with permissions to load data
-    "username": "${rs_username}",
+    "username": "${rs_username}"
     # DB password
-    "password": "${rs_password}",
+    "password": $${REDSHIFT_PASSWORD}
     # Custom JDBC configuration. Optional, default value { "ssl": true }
-    "jdbc": { "ssl": true },
+    "jdbc": { "ssl": true }
     # MAXERROR, amount of acceptable loading errors. Optional, default value 10
     "maxError": ${rs_max_error}
 
