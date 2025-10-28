@@ -1,6 +1,6 @@
 locals {
   module_name    = "redshift-loader-ec2"
-  module_version = "0.3.0"
+  module_version = "0.4.0"
 
   app_name    = "rdb-loader-redshift"
   app_version = var.app_version
